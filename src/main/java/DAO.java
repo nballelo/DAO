@@ -18,9 +18,10 @@ public abstract class DAO <E> {
         comanda.append(") VALUES (");
         for (int i=0;i<atributos.length;i++) {
             a=atributos[i];
-            comanda.append("?,");
             if(i==(atributos.length-1))
                 comanda.append("?)");
+            else
+                comanda.append("?,");
         }
         System.out.println(comanda);
     }
@@ -35,27 +36,27 @@ public abstract class DAO <E> {
             if(i!=(atributos.length-1))
                 comanda.append(",");
         }
-        comanda.append(") WHERE ").append(atributos[0].getName()).append("==?");
+        comanda.append(") WHERE (").append(atributos[0].getName()).append("==?)");
         System.out.println(comanda);
     }
     public void select(String s){
         Class c=this.getClass();
         Field[] atributos = this.getClass().getDeclaredFields();
-        StringBuffer comanda = new StringBuffer("SELECT " ).append(s).append( " INTO ").append(this.getClass().getSimpleName()).append(" WHERE ").append(atributos[0].getName()).append("==");
-        comanda.append("?");
+        StringBuffer comanda = new StringBuffer("SELECT " ).append(s).append( " INTO ").append(this.getClass().getSimpleName()).append(" WHERE (").append(atributos[0].getName()).append("==");
+        comanda.append("?)");
         System.out.println(comanda);
     }
     public void delete(){
         Class c=this.getClass();
         Field[] atributos = this.getClass().getDeclaredFields();
-        StringBuffer comanda = new StringBuffer("DELETE FROM ").append(this.getClass().getSimpleName()).append(" WHERE ").append(atributos[0].getName()).append("==");
-        comanda.append("?");
+        StringBuffer comanda = new StringBuffer("DELETE FROM ").append(this.getClass().getSimpleName()).append(" WHERE (").append(atributos[0].getName()).append("==");
+        comanda.append("?)");
         System.out.println(comanda);
     }
     public void findAll(){
         Field[] atributos = this.getClass().getDeclaredFields();
-        StringBuffer comanda = new StringBuffer("SELECT * INTO ").append(this.getClass().getSimpleName()).append(" WHERE ").append(atributos[0].getName()).append("==");
-        comanda.append("?");
+        StringBuffer comanda = new StringBuffer("SELECT * INTO ").append(this.getClass().getSimpleName()).append(" WHERE (").append(atributos[0].getName()).append("==");
+        comanda.append("?)");
         System.out.println(comanda);
     }
 }
